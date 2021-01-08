@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+  <head>
+    <title>Result</title>
+    <link type="text/css" rel="stylesheet" href="table.css" />
+  </head>
+  <body>
+    <div style="margin-left:275px;margin-right:auto;display:inline-block;box-shadow: 10px 10px 5px #888888;border:1px solid #000000;-moz-border-radius-bottomleft:9px;-webkit-border-bottom-left-radius:9px;border-bottom-left-radius:9px;-moz-border-radius-bottomright:9px;-webkit-border-bottom-right-radius:9px;border-bottom-right-radius:9px;-moz-border-radius-topright:9px;-webkit-border-top-right-radius:9px;border-top-right-radius:9px;-moz-border-radius-topleft:9px;-webkit-border-top-left-radius:9px;border-top-left-radius:9px;background:white">
+      &nbsp;Yearly Automobile Fatality Rate for {{state}} by various factors influencing traffic accidents&nbsp;</div>
+    <p style="bottom-margin:10px">
+      <table class="CSS_Table_Example" style="width:60%;margin:auto;">
+	<tr><th>Year</th><td>Health Spending (% of State Budget)</td><td>Highway Spending (% of State Budget)</td><td>Avg Time to Hospital (in mins)</td><td>Avg # of Hospital within 10 miles</td><td>Overall (fatality rate)</td><td>Daytime (fatality rate)</td><td>Nightime (fatality rate)</td><td>At Junction (fatality rate)</td><td>Clear (fatality rate)</td><td>Rain (fatality rate)</td><td>Snow (fatality rate)</td><td>Cloudy (fatality rate)</td><td>Fog (fatality rate)</td><td>Hail (fa. rate)</td><td>Mon (fatality rate)</td><td>Tue (fatality rate)</td><td>Wed (fatality rate)</td><td>Thu (fatality rate)</td><td>Fri (fatality rate)</td><td>Sat (fatality rate)</td><td>Sun (fatality rate)</td></tr>
+        {{#stateInfo}}
+	<tr><td><b>{{year}}</b></td><td>{{hlth_shr}}</td><td>{{high_shr}}</td><td>{{avg_hosp_arr_mn}}</td><td>{{avg_hosp_5_mi}}</td><td>{{tot}}</td><td>{{daytime}}</td><td>{{nightime}}</td><td>{{junction}}</td><td>{{clear}}</td><td>{{rain}}</td><td>{{snow}}</td><td>{{cloudy}}</td><td>{{fog}}</td><td>{{hail}}</td><td>{{mon}}</td><td>{{tue}}</td><td>{{wed}}</td><td>{{thu}}</td><td>{{fri}}</td><td>{{sat}}</td><td>{{sun}}</td></tr>
+        {{/stateInfo}}
+    </table>
+    </p>
+</body></html>
