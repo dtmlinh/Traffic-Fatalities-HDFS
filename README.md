@@ -7,8 +7,7 @@
    1. Bureau of transportation data:
    - Actual fatal accidents data for 2016-2018
    - Sampling non-fatal accidents data for 2016-2018 (NOT COMPLETE DATA COVERAGE)
-    
-   I used these 2 data sources to try a Random Forest model predicting "fatal cases". I then identified a few factors that the Random Forest model (see `4. ML_spark.scala`) suggests are "important": 
+   - I used these 2 data sources to try a Random Forest model predicting "fatal cases". I then identified a few factors that the Random Forest model (see `4. ML_spark.scala`) suggests are "important": 
         - Weather
         - Ligh condition: day vs. night
         - Occur at junction or not
