@@ -36,7 +36,5 @@
    - `4. ML_spark.scala`: ML codes to train a random forest model
    - folder `app`: Java and HTML codes to deploy app on AWS instance
 
-## Deployed app:
-   - Static: http://ec2-3-15-219-66.us-east-2.compute.amazonaws.com:3199/accidents.html
-   - LB: http://MPCS53014-LoadBalancer-217964685.us-east-2.elb.amazonaws.com:3199/accidents.html
-
+## Deployed app: 
+- Single Webserver: http://ec2-18-218-215-12.us-east-2.compute.amazonaws.com:3000/accidents.html
