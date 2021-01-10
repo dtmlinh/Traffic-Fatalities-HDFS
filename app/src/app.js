@@ -31,6 +31,7 @@ function rowToMap(row) {
     return stats;
 }
 
+app.use(express.static('public'));
 app.get('/accidents.html', function (req, res) {
     hclient.table('ldinh_state').scan({ maxVersions: 1}, (err,rows) => {
         var template = filesystem.readFileSync("accidents.mustache").toString();
@@ -58,7 +59,7 @@ app.get('/accidents_by_state.html',function (req, res) {
         "mon", "tue", "wed", "thu", "fri", "sat", "sun"].forEach(factor => {
             var accidents = yearRecord[factor + '_acc']
             var fatalities = yearRecord[factor + "_fat"]
-            if (accidents == 0 || typeof accidents == "undefined" || typeof fatalities  == "undefined") {
+            if (accidents == 0 || typeof accidents == "undefined" || typeof fatalities  == "undefined" || fatalities > accidents || accidents < 50) {
                 result[factor] = "-"
             }
             else {

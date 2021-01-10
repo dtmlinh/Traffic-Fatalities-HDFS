@@ -1,6 +1,13 @@
 Name: Linh Dinh
 
-Hbase query: create 'ldinh_accidents_conditions_by_state', 'acc'
+Hbase queries: 
+
+create 'ldinh_accidents_conditions_by_state', 'acc'
+create 'ldinh_state', 'st'
+
+
+
+Hive queries:
 
 create external table ldinh_accidents_conditions_by_state (
   location string, tot_acc bigint, tot_fat bigint,
@@ -26,7 +33,6 @@ STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
 WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key,acc:tot_acc#b,acc:tot_fat#b,acc:daytime_acc#b,acc:daytime_fat#b,acc:nightime_acc#b,acc:nightime_fat#b,acc:clear_acc#b,acc:clear_fat#b,acc:rain_acc#b,acc:rain_fat#b,acc:snow_acc#b,acc:snow_fat#b,acc:cloudy_acc#b,acc:cloudy_fat#b,acc:fog_acc#b,acc:fog_fat#b,acc:hail_acc#b,acc:hail_fat#b,acc:junction_acc#b,acc:junction_fat#b,acc:mon_acc#b,acc:mon_fat#b,acc:tue_acc#b,acc:tue_fat#b,acc:wed_acc#b,acc:wed_fat#b,acc:thu_acc#b,acc:thu_fat#b,acc:fri_acc#b,acc:fri_fat#b,acc:sat_acc#b,acc:sat_fat#b,acc:sun_acc#b,acc:sun_fat#b,acc:avg_hosp_arr_mn,acc:avg_hosp_5_mi,acc:tot_sp,acc:hea_sp,acc:hos_sp,acc:hig_sp')
 TBLPROPERTIES ('hbase.table.name' = 'ldinh_accidents_conditions_by_state');
 
-
 insert overwrite table ldinh_accidents_conditions_by_state
 select concat(a.state, a.year),
   a.tot_accidents, f.tot_accidents,
@@ -46,7 +52,7 @@ select concat(a.state, a.year),
   a.friday, f.friday,
   a.saturday, f.saturday,
   a.sunday, f.sunday,
-  a.avg_hosp_arr_mn/60, a.avg_hosp_5_mi,
+  a.avg_hosp_arr_mn, a.avg_hosp_5_mi,
   a.tot, a.hea, a.hos, a.hig
 from
 (select state, year,
@@ -72,11 +78,7 @@ left join
   wednesday, thursday,
   friday, saturday, sunday
 from ldinh_fatalities_master) f
-on a.state = f.state and a.year = f.year
-where a.year in (2016,2017,2018);
-
-
-Hbase query: create 'ldinh_state', 'st'
+on a.state = f.state and a.year = f.year; ##where a.year in (2016,2017,2018);
 
 create external table ldinh_state (state string, state_dup string)
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'

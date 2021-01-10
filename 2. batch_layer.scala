@@ -4,6 +4,7 @@ spark-shell --conf spark.hadoop.metastore.catalog.default=hive
 import org.apache.spark.sql.SaveMode
 
 
+
 val fars_crss = spark.sql("""SELECT
 VE_TOTAL, VE_FORMS, PVH_INVL, PEDS, PERMVIT, PERNOTMVIT, MONTH, YEAR,
 DAY_WEEK, HOUR, HARM_EV, MAN_COLL, RELJCT1, RELJCT2, TYP_INT, WRK_ZONE,
@@ -61,6 +62,7 @@ accidents_clean.createOrReplaceTempView("accidents_clean")
 accidents_clean.write.mode(SaveMode.Overwrite).saveAsTable("ldinh_accidents_clean")
 
 
+
 val fatalities_clean = spark.sql("""SELECT upper(g.state_name_abr) as state, upper(g.county_name) as county, minute, hour, day,
 CASE WHEN day_week == 1 THEN 'Sunday'
 WHEN day_week == 2 THEN 'Monday'
@@ -84,8 +86,8 @@ ELSE 'Other' END as weather,
 CASE WHEN reljct1 = 0 then 'No' 
 WHEN reljct1 = 1 then 'Yes'
 ELSE 'Unknown' END as junction,
-CASE WHEN hosp_hr > hour THEN round(((hosp_hr + hosp_mn/60) - (hour + minute/60)) * 60, 0)
-WHEN (hosp_hr = hour AND hosp_mn >= minute) THEN round((hosp_mn - minute) * 60, 0)
+CASE WHEN (hosp_hr > hour) AND (hosp_hr BETWEEN 0 and 24) THEN round(((hosp_hr + hosp_mn/60) - (hour + minute/60)) * 60, 0)
+WHEN (hosp_hr = hour AND hosp_mn >= minute) AND (hosp_hr BETWEEN 0 and 24) THEN round((hosp_mn - minute), 0)
 ELSE NULL END as hosp_arr_mn,
 1 as ct
 FROM ldinh_fatalities f
@@ -95,6 +97,7 @@ ON f.county = g.county_code
 AND f.state = g.state_code;""")
 fatalities_clean.createOrReplaceTempView("fatalities_clean")
 fatalities_clean.write.mode(SaveMode.Overwrite).saveAsTable("ldinh_fatalities_clean")
+
 
 
 val gov_spend_clean = spark.sql("""SELECT upper(g.state_name_abr) as state, t1.category, t1.year, t1.cat_spending, t2.tot_spending 
@@ -180,10 +183,12 @@ count(if(month = 10, 1, null)) month_10,
 count(if(month = 11, 1, null)) month_11,
 count(if(month = 12, 1, null)) month_12
 FROM ldinh_accidents_clean
+WHERE year IN (2017,2018) OR (year = 2016 AND month IN (3,4,5,6,7,8,9,10,11,12))
 GROUP BY state, year) t1
 LEFT JOIN 
 (SELECT state, year, avg(hosp_arr_mn) avg_hosp_arr_mn
 FROM ldinh_fatalities_clean
+WHERE year IN (2017,2018) OR (year = 2016 AND month IN (3,4,5,6,7,8,9,10,11,12))
 GROUP BY state, year) t2
 ON t1.state = t2.state
 AND t1.year = t2.year
@@ -262,6 +267,7 @@ count(if(month = 11, 1, null)) month_11,
 count(if(month = 12, 1, null)) month_12,
 avg(hosp_arr_mn) avg_hosp_arr_mn
 FROM ldinh_fatalities_clean
+WHERE year IN (2017,2018) OR (year = 2016 AND month IN (6,7,8,9,10,11,12))
 GROUP BY state, year) t1
 LEFT JOIN ldinh_hosp_5_mi_state t2
 ON t1.state = t2.state 
@@ -278,7 +284,5 @@ ON t1.state = t3.state
 AND t1.year = t3.year;""")
 fatalities_master.createOrReplaceTempView("fatalities_master")
 fatalities_master.write.mode(SaveMode.Overwrite).saveAsTable("ldinh_fatalities_master")
-
-
 
 

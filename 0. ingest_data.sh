@@ -42,6 +42,12 @@ cat FARS2016/accident.CSV | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/FARS
 cat FARS2017/accident.CSV | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/FARS/FARS/FARS2017.csv
 cat FARS2018/accident.CSV | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/FARS/FARS/FARS2018.csv
 
+'''
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/FARS/FARS2016/FARS2016.CSV --dest=hdfs:///traffic-fatalities-hdfs/FARS/FARS/
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/FARS/FARS2017/FARS2017.CSV --dest=hdfs:///traffic-fatalities-hdfs/FARS/FARS/
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/FARS/FARS2018/FARS2018.CSV --dest=hdfs:///traffic-fatalities-hdfs/FARS/FARS/
+'''
+
 
 '''NON-FATALITIES DATA'''
 '''Curl the raw data directly into HDFS master node and unzip, then copy this to HDFS cluster'''
@@ -61,6 +67,12 @@ unzip CRSS2018.zip
 cat CRSS2016/ACCIDENT.CSV | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/CRSS2016.csv
 cat CRSS2017/ACCIDENT.CSV | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/CRSS2017.csv
 cat CRSS2018/ACCIDENT.csv | hdfs dfs -put - hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/CRSS2018.csv
+
+'''
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/CRSS/CRSS2016/CRSS2016.CSV --dest=hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/CRSS/CRSS2017/CRSS2017.CSV --dest=hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/
+s3-dist-cp --src=s3://traffic-fatalities-hdfs/CRSS/CRSS2018/CRSS2018.csv --dest=hdfs:///traffic-fatalities-hdfs/CRSS/CRSS/
+'''
 
 
 '''FINANCE DATA'''

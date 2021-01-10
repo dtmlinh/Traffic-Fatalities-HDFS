@@ -49,8 +49,8 @@
 	border:0px solid #000000;
 	text-align:center;
 	border-width:0px 0px 1px 1px;
-	font-size:18px;
-	font-family:Comic Sans MS;
+	font-size:12px;
+	font-family:Arial;
 	font-weight:bold;
 	color:#ffffff;
 }.CSSTableGenerator tr:first-child:hover td{
@@ -72,7 +72,7 @@
 	text-align:left;
 	padding:7px;
 	font-size:12px;
-	font-family:Comic Sans MS;
+	font-family:Arial;
 	font-weight:bold;
 	color:#000000;
 }.CSS_Table_Example tr:last-child td{

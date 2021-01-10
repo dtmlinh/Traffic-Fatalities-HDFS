@@ -10,17 +10,17 @@ Name: Linh Dinh
 create external table ldinh_accidents_csv(
 ID string,
 Source string,
-TMC decimal,
+TMC double,
 Severity smallint,
 Start_Time timestamp,
 End_Time timestamp,
-Start_Lat decimal,
-Start_Lng decimal,
-End_Lat decimal,
-End_Lng decimal,
-Distance decimal,
+Start_Lat double,
+Start_Lng double,
+End_Lat double,
+End_Lng double,
+Distance double,
 Description string,
-Number decimal,
+Number double,
 Street string,
 Side string,
 City string,
@@ -31,14 +31,14 @@ Country string,
 Timezone string,
 Airport_Code string,
 Weather_Timestamp timestamp,
-Temperature decimal,
-Wind_Chill decimal,
-Humidity decimal,
-Pressure decimal,
-Visibility decimal,
+Temperature double,
+Wind_Chill double,
+Humidity double,
+Pressure double,
+Visibility double,
 Wind_Direction string,
-Wind_Speed decimal,
-Precipitation decimal,
+Wind_Speed double,
+Precipitation double,
 Weather_Condition string,
 Amenity boolean,
 Bump boolean,
@@ -74,17 +74,17 @@ select ID, Severity, Start_Time, Start_Lat, Distance, City, State, Zipcode, Temp
 create table ldinh_accidents(
 ID string,
 Source string,
-TMC decimal,
+TMC double,
 Severity smallint,
 Start_Time timestamp,
 End_Time timestamp,
-Start_Lat decimal,
-Start_Lng decimal,
-End_Lat decimal,
-End_Lng decimal,
-Distance decimal,
+Start_Lat double,
+Start_Lng double,
+End_Lat double,
+End_Lng double,
+Distance double,
 Description string,
-Number decimal,
+Number double,
 Street string,
 Side string,
 City string,
@@ -95,14 +95,14 @@ Country string,
 Timezone string,
 Airport_Code string,
 Weather_Timestamp timestamp,
-Temperature decimal,
-Wind_Chill decimal,
-Humidity decimal,
-Pressure decimal,
-Visibility decimal,
+Temperature double,
+Wind_Chill double,
+Humidity double,
+Pressure double,
+Visibility double,
 Wind_Direction string,
-Wind_Speed decimal,
-Precipitation decimal,
+Wind_Speed double,
+Precipitation double,
 Weather_Condition string,
 Amenity boolean,
 Bump boolean,
@@ -171,12 +171,12 @@ FUNC_SYS smallint,
 FUNC_SYSNAME string,
 RD_OWNER smallint,
 RD_OWNERNAME string, 
-MILEPT decimal,
+MILEPT double,
 MILEPTNAME string,
-LATITUDE decimal,
-LATITUDENAME decimal,
-LONGITUD decimal, 
-LONGITUDNAME decimal,
+LATITUDE double,
+LATITUDENAME double,
+LONGITUD double, 
+LONGITUDNAME double,
 SP_JUR smallint,
 SP_JURNAME string,
 HARM_EV smallint, 
@@ -232,7 +232,7 @@ WITH SERDEPROPERTIES (
    "quoteChar"     = "\""
 )
 STORED AS TEXTFILE
-  location '/traffic-fatalities-hdfs/FARS/FARS'
+  location '/traffic-fatalities-hdfs/FARS'
   tblproperties ("skip.header.line.count"="1");
 
 -- Run a test query to make sure the above worked correctly
@@ -277,12 +277,12 @@ FUNC_SYS smallint,
 FUNC_SYSNAME string,
 RD_OWNER smallint,
 RD_OWNERNAME string, 
-MILEPT decimal,
+MILEPT double,
 MILEPTNAME string,
-LATITUDE decimal,
-LATITUDENAME decimal,
-LONGITUD decimal, 
-LONGITUDNAME decimal,
+LATITUDE double,
+LATITUDENAME double,
+LONGITUD double, 
+LONGITUDNAME double,
 SP_JUR smallint,
 SP_JURNAME string,
 HARM_EV smallint, 
@@ -394,7 +394,7 @@ MAXSEV_IM smallint,
 NO_INJ_IM smallint, 
 ALCHL_IM smallint,
 PSUSTRAT smallint, 
-WEIGHT decimal)
+WEIGHT double)
 row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 
 WITH SERDEPROPERTIES (
@@ -402,7 +402,7 @@ WITH SERDEPROPERTIES (
    "quoteChar"     = "\""
 )
 STORED AS TEXTFILE
-  location '/traffic-fatalities-hdfs/CRSS/CRSS'
+  location '/traffic-fatalities-hdfs/CRSS'
   tblproperties ("skip.header.line.count"="1");
 
 -- Run a test query to make sure the above worked correctly
@@ -460,7 +460,7 @@ MAXSEV_IM smallint,
 NO_INJ_IM smallint, 
 ALCHL_IM smallint,
 PSUSTRAT smallint, 
-WEIGHT decimal)
+WEIGHT double)
 stored as orc;
 
 -- Copy the CSV table to the ORC table
@@ -526,8 +526,8 @@ select * from ldinh_geo_mapping limit 5;
 
 -- Create external table
 create external table ldinh_hospitals_csv(
-X decimal,
-Y decimal,
+X double,
+Y double,
 OBJECTID smallint,
 ID bigint,
 NAME string,
@@ -539,12 +539,12 @@ ZIP4 string,
 TELEPHONE string,
 TYPE string,
 STATUS string,
-POPULATION decimal,
+POPULATION double,
 COUNTY string,
 COUNTYFIPS int,
 COUNTRY string,
-LATITUDE decimal,
-LONGITUDE decimal,
+LATITUDE double,
+LONGITUDE double,
 NAICS_CODE int,
 NAICS_DESC string,
 SOURCE string,
@@ -575,8 +575,8 @@ select X, Y, NAME, CITY, STATE, ZIP, COUNTYFIPS, LATITUDE, LONGITUDE, ST_FIPS, B
 
 -- Create an ORC table for the same data
 create table ldinh_hospitals(
-X decimal,
-Y decimal,
+X double,
+Y double,
 OBJECTID smallint,
 ID bigint,
 NAME string,
@@ -588,12 +588,12 @@ ZIP4 string,
 TELEPHONE string,
 TYPE string,
 STATUS string,
-POPULATION decimal,
+POPULATION double,
 COUNTY string,
 COUNTYFIPS int,
 COUNTRY string,
-LATITUDE decimal,
-LONGITUDE decimal,
+LATITUDE double,
+LONGITUDE double,
 NAICS_CODE int,
 NAICS_DESC string,
 SOURCE string,
@@ -631,8 +631,8 @@ AGG_DESC string,
 AGG_DESC_LABEL string,
 GOVTYPE smallint,
 GOVTYPE_LABEL string,
-AMOUNT decimal,
-AMOUNT_FORMATTED decimal)
+AMOUNT double,
+AMOUNT_FORMATTED double)
 row format serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 
 WITH SERDEPROPERTIES (
@@ -657,8 +657,8 @@ AGG_DESC string,
 AGG_DESC_LABEL string,
 GOVTYPE smallint,
 GOVTYPE_LABEL string,
-AMOUNT decimal,
-AMOUNT_FORMATTED decimal)
+AMOUNT double,
+AMOUNT_FORMATTED double)
 stored as orc;
 
 -- Copy the CSV table to the ORC table
