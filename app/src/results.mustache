@@ -6,14 +6,40 @@
       <link type="text/css" rel="stylesheet" href="elegant-aero.css" />
   </head>
   <body>
-    <div style="margin-left:275px;margin-right:auto;display:inline-block;box-shadow: 10px 10px 5px #888888;border:1px solid #000000;-moz-border-radius-bottomleft:10px;-webkit-border-bottom-left-radius:10px;border-bottom-left-radius:10px;-moz-border-radius-bottomright:10px;-webkit-border-bottom-right-radius:10px;border-bottom-right-radius:10px;-moz-border-radius-topright:10px;-webkit-border-top-right-radius:10px;border-top-right-radius:10px;-moz-border-radius-topleft:10px;-webkit-border-top-left-radius:10px;border-top-left-radius:10px;background:white" class="elegant-aero">
-      &nbsp;Yearly Automobile Fatality Rate for {{state}} by various factors influencing traffic accidents&nbsp;</div>
-    <p style="bottom-margin:10px">
-      <table class="CSS_Table_Example" style="width:60%;margin:auto;">
-	<tr><td>Year</td><td>Health Spending (% of State Budget)</td><td>Highway Spending (% of State Budget)</td><td>Avg Time to Hospital (in mins)</td><td>Avg # of Hospital within 10 miles</td><td>Overall (fatality rate)</td><td>Daytime (fatality rate)</td><td>Nightime (fatality rate)</td><td>At Junction (fatality rate)</td><td>Clear (fatality rate)</td><td>Rain (fatality rate)</td><td>Snow (fatality rate)</td><td>Cloudy (fatality rate)</td><td>Fog (fatality rate)</td><td>Hail (fatality rate)</td><td>Mon (fatality rate)</td><td>Tue (fatality rate)</td><td>Wed (fatality rate)</td><td>Thu (fatality rate)</td><td>Fri (fatality rate)</td><td>Sat (fatality rate)</td><td>Sun (fatality rate)</td></tr>
+    <table></table>
+
+  <h3><div style="text-align:center;width:98%;position:fixed;display:inline-block;border:1px solid #000000;-moz-border-radius-bottomleft:10px;-webkit-border-bottom-left-radius:10px;border-bottom-left-radius:10px;-moz-border-radius-bottomright:10px;-webkit-border-bottom-right-radius:10px;border-bottom-right-radius:10px;-moz-border-radius-topright:10px;-webkit-border-top-right-radius:10px;border-top-right-radius:10px;-moz-border-radius-topleft:10px;-webkit-border-top-left-radius:10px;border-top-left-radius:10px;background:white" class="elegant-aero">
+      &nbsp;Government Spending, Accident Location, and Weather&nbsp;</div></h3>
+  <div>
+      <table class="CSS_Table_Example" style="margin-top:60px;width:100%">
+          <tr><td>Year</td><td>Health Spending (% State Budget)</td><td>Highway Spending (% State Budget)</td><td>Avg Time to Hospital (mins)</td><td>Avg # of hospitals within 10 miles</td><td>Total #accidents</td><td>Day time #accidents</td><td>Night time #accidents</td><td>At Junction #accidents</td><td>Clear #accidents</td><td>Rain #accidents</td><td>Snow #accidents</td><td>Cloudy #accidents</td><td>Fog #accidents</td><td>Hail #accidents</td><td>Overall %fatality</td><td>Day time %fatality</td><td>Night time %fatality</td><td>At Junction %fatality</td><td>Clear %fatality</td><td>Rain %fatality</td><td>Snow %fatality</td><td>Cloudy %fatality</td><td>Fog %fatality</td><td>Hail %fatality</td></tr>
+          {{#stateInfo}}
+              <tr><td><b>{{year}}</b></td><td>{{hlth_shr}}</td><td>{{high_shr}}</td><td>{{avg_hosp_arr_mn}}</td><td>{{avg_hosp_5_mi}}</td><td>{{tot_raw}}</td><td>{{daytime_raw}}</td><td>{{nightime_raw}}</td><td>{{junction_raw}}</td><td>{{clear_raw}}</td><td>{{rain_raw}}</td><td>{{snow_raw}}</td><td>{{cloudy_raw}}</td><td>{{fog_raw}}</td><td>{{hail_raw}}</td><td>{{tot}}</td><td>{{daytime}}</td><td>{{nightime}}</td><td>{{junction}}</td><td>{{clear}}</td><td>{{rain}}</td><td>{{snow}}</td><td>{{cloudy}}</td><td>{{fog}}</td><td>{{hail}}</td></tr>
+          {{/stateInfo}}
+      </table>
+  </div>
+
+  <h3><div style="text-align:center;width:98%;position:fixed;display:inline-block;border:1px solid #000000;-moz-border-radius-bottomleft:10px;-webkit-border-bottom-left-radius:10px;border-bottom-left-radius:10px;-moz-border-radius-bottomright:10px;-webkit-border-bottom-right-radius:10px;border-bottom-right-radius:10px;-moz-border-radius-topright:10px;-webkit-border-top-right-radius:10px;border-top-right-radius:10px;-moz-border-radius-topleft:10px;-webkit-border-top-left-radius:10px;border-top-left-radius:10px;background:white" class="elegant-aero">
+      &nbsp;Day of Week&nbsp;</div></h3>
+  <div>
+    <table class="CSS_Table_Example" style="margin-top:60px;width:100%">
+        <tr><td>Year</td><td>Mon #accidents</td><td>Tue #accidents</td><td>Wed #accidents</td><td>Thu #accidents</td><td>Fri #accidents</td><td>Sat #accidents</td><td>Sun #accidents</td><td>Mon %fatality</td><td>Tue %fatality</td><td>Wed %fatality</td><td>Thu %fatality</td><td>Fri %fatality</td><td>Sat %fatality</td><td>Sun %fatality</td></tr>
         {{#stateInfo}}
-	<tr><td><b>{{year}}</b></td><td>{{hlth_shr}}</td><td>{{high_shr}}</td><td>{{avg_hosp_arr_mn}}</td><td>{{avg_hosp_5_mi}}</td><td>{{tot}}</td><td>{{daytime}}</td><td>{{nightime}}</td><td>{{junction}}</td><td>{{clear}}</td><td>{{rain}}</td><td>{{snow}}</td><td>{{cloudy}}</td><td>{{fog}}</td><td>{{hail}}</td><td>{{mon}}</td><td>{{tue}}</td><td>{{wed}}</td><td>{{thu}}</td><td>{{fri}}</td><td>{{sat}}</td><td>{{sun}}</td></tr>
+            <tr><td><b>{{year}}</b></td><td>{{mon_raw}}</td><td>{{tue_raw}}</td><td>{{wed_raw}}</td><td>{{thu_raw}}</td><td>{{fri_raw}}</td><td>{{sat_raw}}</td><td>{{sun_raw}}</td><td>{{mon}}</td><td>{{tue}}</td><td>{{wed}}</td><td>{{thu}}</td><td>{{fri}}</td><td>{{sat}}</td><td>{{sun}}</td></tr>
         {{/stateInfo}}
     </table>
-    </p>
-</body></html>
+  </div>
+
+  <h3><div style="text-align:center;width:98%;position:fixed;display:inline-block;border:1px solid #000000;-moz-border-radius-bottomleft:10px;-webkit-border-bottom-left-radius:10px;border-bottom-left-radius:10px;-moz-border-radius-bottomright:10px;-webkit-border-bottom-right-radius:10px;border-bottom-right-radius:10px;-moz-border-radius-topright:10px;-webkit-border-top-right-radius:10px;border-top-right-radius:10px;-moz-border-radius-topleft:10px;-webkit-border-top-left-radius:10px;border-top-left-radius:10px;background:white" class="elegant-aero">
+      &nbsp;Month of Year&nbsp;</div></h3>
+  <div>
+  <table class="CSS_Table_Example" style="margin-top:60px;width:100%">
+      <tr><td>Year</td><td>Jan #accidents</td><td>Feb #accidents</td><td>Mar #accidents</td><td>Apr #accidents</td><td>May #accidents</td><td>Jun #accidents</td><td>Jul #accidents</td><td>Aug #accidents</td><td>Sep #accidents</td><td>Oct #accidents</td><td>Nov #accidents</td><td>Dec #accidents</td><td>Jan %fatality</td><td>Feb %fatality</td><td>Mar %fatality</td><td>Apr %fatality</td><td>May %fatality</td><td>Jun %fatality</td><td>Jul %fatality</td><td>Aug %fatality</td><td>Sep %fatality</td><td>Oct %fatality</td><td>Nov %fatality</td><td>Dec %fatality</td></tr>
+      {{#stateInfo}}
+          <tr><td><b>{{year}}</b></td><td>{{month_1_raw}}</td><td>{{month_2_raw}}</td><td>{{month_3_raw}}</td><td>{{month_4_raw}}</td><td>{{month_5_raw}}</td><td>{{month_6_raw}}</td><td>{{month_7_raw}}</td><td>{{month_8_raw}}</td><td>{{month_9_raw}}</td><td>{{month_10_raw}}</td><td>{{month_11_raw}}</td><td>{{month_12_raw}}</td><td>{{month_1}}</td><td>{{month_2}}</td><td>{{month_3}}</td><td>{{month_4}}</td><td>{{month_5}}</td><td>{{month_6}}</td><td>{{month_7}}</td><td>{{month_8}}</td><td>{{month_9}}</td><td>{{month_10}}</td><td>{{month_11}}</td><td>{{month_12}}</td></tr>
+      {{/stateInfo}}
+  </table>
+  </div>
+
+  </body>
+</html>

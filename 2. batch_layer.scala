@@ -1,6 +1,23 @@
-Name: Linh Dinh
+// Name: Linh Dinh
+
+// DROP OLD TABLES IN HIVE (HQL)
+
+beeline -u jdbc:hive2://localhost:10000/default -n hadoop -d org.apache.hive.jdbc.HiveDriver
+
+drop table ldinh_fars_crss;
+drop table ldinh_hosp_5_mi_state;
+drop table ldinh_accidents_clean;
+drop table ldinh_fatalities_clean;
+drop table ldinh_gov_spend_clean;
+drop table ldinh_accidents_master;
+drop table ldinh_fatalities_master;
+
+
+
+// SPARK QUERIES
 
 spark-shell --conf spark.hadoop.metastore.catalog.default=hive
+
 import org.apache.spark.sql.SaveMode
 
 
@@ -183,12 +200,12 @@ count(if(month = 10, 1, null)) month_10,
 count(if(month = 11, 1, null)) month_11,
 count(if(month = 12, 1, null)) month_12
 FROM ldinh_accidents_clean
-WHERE year IN (2017,2018) OR (year = 2016 AND month IN (3,4,5,6,7,8,9,10,11,12))
+WHERE year != 2016 OR (year = 2016 AND month IN (7,8,9,10,11,12))
 GROUP BY state, year) t1
 LEFT JOIN 
 (SELECT state, year, avg(hosp_arr_mn) avg_hosp_arr_mn
 FROM ldinh_fatalities_clean
-WHERE year IN (2017,2018) OR (year = 2016 AND month IN (3,4,5,6,7,8,9,10,11,12))
+WHERE year != 2016 OR (year = 2016 AND month IN (7,8,9,10,11,12))
 GROUP BY state, year) t2
 ON t1.state = t2.state
 AND t1.year = t2.year
@@ -267,7 +284,7 @@ count(if(month = 11, 1, null)) month_11,
 count(if(month = 12, 1, null)) month_12,
 avg(hosp_arr_mn) avg_hosp_arr_mn
 FROM ldinh_fatalities_clean
-WHERE year IN (2017,2018) OR (year = 2016 AND month IN (6,7,8,9,10,11,12))
+WHERE year != 2016 OR (year = 2016 AND month IN (7,8,9,10,11,12))
 GROUP BY state, year) t1
 LEFT JOIN ldinh_hosp_5_mi_state t2
 ON t1.state = t2.state 

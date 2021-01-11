@@ -1,4 +1,9 @@
+Name: Linh Dinh
+
 spark-shell --conf spark.hadoop.metastore.catalog.default=hive
+
+
+
 import org.apache.spark.sql.SaveMode
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.classification.RandomForestClassifier
@@ -8,6 +13,8 @@ import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.mllib.util.MLUtils
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.linalg.Vectors
+
+
 
 val data = spark.table("ldinh_fars_crss").withColumnRenamed("FATAL_FLAG","label")
 
@@ -69,6 +76,7 @@ importances.toArray.zipWithIndex
   .foreach(x => println(x._1 + " -> " + x._2))
 
 
+
 ///RandomForestClassifier Feature Importances Results:
 
 //11 -> 0.1875558074197628 "MAN_COLL"
@@ -96,6 +104,7 @@ importances.toArray.zipWithIndex
 //19 -> 3.8934119766807833E-4 "SCH_BUS"
 
 
+
 //0 "VE_TOTAL", 
 //1 "VE_FORMS", 
 //2 "PVH_INVL",
@@ -119,4 +128,5 @@ importances.toArray.zipWithIndex
 //20 "CF1",
 //21 "CF2",
 //22 "CF3"
+
 

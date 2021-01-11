@@ -33,7 +33,7 @@ function rowToMap(row) {
 
 app.use(express.static('public'));
 app.get('/accidents.html', function (req, res) {
-    hclient.table('ldinh_state').scan({ maxVersions: 1}, (err,rows) => {
+    hclient.table('ldinh_state').scan({maxVersions: 1}, (err,rows) => {
         var template = filesystem.readFileSync("accidents.mustache").toString();
         var html = mustache.render(template, {
             states : rows
@@ -55,17 +55,46 @@ app.get('/accidents_by_state.html',function (req, res) {
     function processYearRecord(yearRecord) {
         console.log(yearRecord)
         var result = { year : yearRecord['year']};
-        ["tot", "daytime", "nightime", "clear", "rain", "snow", "cloudy", "fog", "hail", "junction",
-        "mon", "tue", "wed", "thu", "fri", "sat", "sun"].forEach(factor => {
-            var accidents = yearRecord[factor + '_acc']
-            var fatalities = yearRecord[factor + "_fat"]
-            if (accidents == 0 || typeof accidents == "undefined" || typeof fatalities  == "undefined" || fatalities > accidents || accidents < 50) {
+        var overall_acc = yearRecord["tot_acc"];
+        var overall_fat = yearRecord["tot_fat"];
+
+        if (overall_acc > overall_fat && overall_acc > 365) {
+            ["tot", "daytime", "nightime", "clear", "rain", "snow", "cloudy", "fog", "hail", "junction",
+                "mon", "tue", "wed", "thu", "fri", "sat", "sun",
+                "hour_1", "hour_2", "hour_3", "hour_4", "hour_5", "hour_6",
+                "hour_7", "hour_8", "hour_9", "hour_10", "hour_11", "hour_12",
+                "hour_13", "hour_14", "hour_15", "hour_16", "hour_17", "hour_18",
+                "hour_19", "hour_20", "hour_21", "hour_22", "hour_23", "hour_24",
+                "month_1", "month_2", "month_3", "month_4", "month_5", "month_6",
+                "month_7", "month_8", "month_9", "month_10", "month_11", "month_12"].forEach((factor, formatter) => {
+                var accidents = yearRecord[factor + "_acc"]
+                var fatalities = yearRecord[factor + "_fat"]
+                if (accidents === 0 || typeof accidents == "undefined" || typeof fatalities == "undefined" || fatalities > accidents) {
+                    result[factor + '_raw'] = "-"
+                } else {
+                    result[factor + '_raw'] = accidents.toLocaleString('en')
+                }
+
+                if (accidents === 0 || typeof accidents == "undefined" || typeof fatalities == "undefined" || fatalities > accidents) {
+                    result[factor] = "-"
+                } else {
+                    result[factor] = (100 * fatalities / accidents).toFixed(1) + '%';
+                }
+            })
+        }
+        else {
+            ["tot", "daytime", "nightime", "clear", "rain", "snow", "cloudy", "fog", "hail", "junction",
+            "mon", "tue", "wed", "thu", "fri", "sat", "sun",
+            "hour_1", "hour_2", "hour_3", "hour_4", "hour_5", "hour_6",
+            "hour_7", "hour_8", "hour_9", "hour_10", "hour_11", "hour_12",
+            "hour_13", "hour_14", "hour_15", "hour_16", "hour_17", "hour_18",
+            "hour_19", "hour_20", "hour_21", "hour_22", "hour_23", "hour_24",
+            "month_1", "month_2", "month_3", "month_4", "month_5", "month_6",
+            "month_7", "month_8", "month_9", "month_10", "month_11", "month_12"].forEach((factor, formatter) => {
+                result[factor + '_raw'] = "-"
                 result[factor] = "-"
-            }
-            else {
-                result[factor] = (100 * fatalities/accidents).toFixed(1)+'%';
-            }
-        })
+            })
+        }
 
         if (typeof yearRecord['avg_hosp_arr_mn'] == "undefined" ) {
             result['avg_hosp_arr_mn'] = "-"

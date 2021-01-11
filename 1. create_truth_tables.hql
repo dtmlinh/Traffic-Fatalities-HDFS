@@ -1,10 +1,31 @@
-Name: Linh Dinh
-
-'''CREATE GROUND TRUTH HIVE TABLES'''
-'''to start hive: beeline -u jdbc:hive2://localhost:10000/default -n hadoop -d org.apache.hive.jdbc.HiveDriver'''
+-- Name: Linh Dinh
+-- CREATE GROUND TRUTH HIVE TABLES
 
 
-'''ACCIDENTS TABLES'''
+
+-- to start hive: 
+
+beeline -u jdbc:hive2://localhost:10000/default -n hadoop -d org.apache.hive.jdbc.HiveDriver
+
+
+
+-- drop existing tables:
+drop table ldinh_accidents_csv;
+drop table ldinh_accidents;
+drop table ldinh_fatalities_csv;
+drop table ldinh_fatalities;
+drop table ldinh_non_fatalities_csv;
+drop table ldinh_non_fatalities;
+drop table ldinh_geo_mapping_csv;
+drop table ldinh_geo_mapping;
+drop table ldinh_hospitals_csv;
+drop table ldinh_hospitals;
+drop table ldinh_gov_spending_csv;
+drop table ldinh_gov_spending;
+
+
+
+-- ACCIDENTS TABLES
 
 -- Create external table
 create external table ldinh_accidents_csv(
@@ -130,7 +151,8 @@ insert overwrite table ldinh_accidents select * from ldinh_accidents_csv;
 select ID, Severity, Start_Time, Start_Lat, Distance, City, State, Zipcode, Temperature, Pressure, Give_Way, Sunrise_Sunset from ldinh_accidents limit 5;
 
 
-'''FATALITIES TABLES'''
+
+-- FATALITIES TABLES
 
 -- Create external table
 create external table ldinh_fatalities_csv(
@@ -340,7 +362,8 @@ insert overwrite table ldinh_fatalities select * from ldinh_fatalities_csv;
 select STATE, VE_TOTAL, PERSONS, COUNTY, CITY, DAY, HOUR, MINUTE, MILEPT, LATITUDE, LONGITUD, REL_ROAD, WEATHER1, RAIL, ARR_MIN, HOSP_HR, FATALS from ldinh_fatalities limit 5;
 
 
-'''NON-FATALITIES TABLES'''
+
+-- NON-FATALITIES TABLES
 
 -- Create external table
 create external table ldinh_non_fatalities_csv(
@@ -470,7 +493,8 @@ insert overwrite table ldinh_non_fatalities select * from ldinh_non_fatalities_c
 select REGION, VE_TOTAL, HOUR, HOUR_IM, MINUTE, REL_ROAD, WEATHER, WEATHR_IM, CF1, CF2, CF3 from ldinh_non_fatalities limit 5;
 
 
-'''GEO_MAPPING'''
+
+-- GEO_MAPPING
 
 -- Create external table
 create external table ldinh_geo_mapping_csv(
@@ -522,7 +546,8 @@ insert overwrite table ldinh_geo_mapping select * from ldinh_geo_mapping_csv;
 select * from ldinh_geo_mapping limit 5;
 
 
-'''HOSPITALS'''
+
+-- HOSPITALS
 
 -- Create external table
 create external table ldinh_hospitals_csv(
@@ -618,7 +643,8 @@ insert overwrite table ldinh_hospitals select * from ldinh_hospitals_csv;
 select X, Y, NAME, CITY, STATE, ZIP, COUNTYFIPS, LATITUDE, LONGITUDE, ST_FIPS, BEDS from ldinh_hospitals limit 5;
 
 
-'''GOV SPENDING'''
+
+-- GOV SPENDING
 
 -- Create external table
 create external table ldinh_gov_spending_csv(
@@ -666,4 +692,5 @@ insert overwrite table ldinh_gov_spending select * from ldinh_gov_spending_csv;
 
 -- Test the ORC table
 select * from ldinh_gov_spending limit 5;
+
 
